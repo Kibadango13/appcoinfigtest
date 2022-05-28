@@ -36,10 +36,12 @@ spring:
         predicates:
           - Path=/operation/**
         filters:
-          - StripPrefix=1  
+          - StripPrefix=1 
+          - JwtAuthenticationFilter
       - id: apptransaction
         uri: http://localhost:4003
         predicates:
           - Path=/transaction/**
         filters:
-          - StripPrefix=1  
+          - StripPrefix=1
+          - JwtAuthenticationFilter
