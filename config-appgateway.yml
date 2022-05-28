@@ -1,0 +1,46 @@
+server:
+  port: 4005
+  
+jwt:
+  secret: Key#SuperSecret$Aforo2SS#JavaMicroservices#987654321
+ 
+spring:
+  application:
+    name: appgateway
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+              allowedOrigins: "*"
+              allowedMethods: "*"
+              allowedHeaders: "*"
+      routes:      
+      - id: appsecurity
+        uri: http://localhost:4004
+        predicates:
+          - Path=/security/**
+        filters:
+          - StripPrefix=1    
+      - id: appinvoices
+        uri: http://localhost:4002
+        predicates:
+          - Path=/invoice/**
+        filters:
+          - StripPrefix=1  
+          - JwtAuthenticationFilter
+      - id: apppay
+        uri: http://localhost:4001
+        predicates:
+          - Path=/operation/**
+        filters:
+          - StripPrefix=1  
+      - id: apptransaction
+        uri: http://localhost:4003
+        predicates:
+          - Path=/transaction/**
+        filters:
+          - StripPrefix=1  
+      
