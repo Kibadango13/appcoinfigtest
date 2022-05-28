@@ -19,15 +19,27 @@ spring:
               allowedHeaders: "*"
       routes:      
       - id: appsecurity
-        uri: http://localhost:5001
+        uri: http://localhost:4004
         predicates:
           - Path=/security/**
         filters:
           - StripPrefix=1    
-      - id: appaccount
-        uri: http://localhost:5002
+      - id: appinvoices
+        uri: http://localhost:4002
         predicates:
-          - Path=/appaccount/**
+          - Path=/invoice/**
         filters:
           - StripPrefix=1  
-      
+          - JwtAuthenticationFilter
+      - id: apppay
+        uri: http://localhost:4001
+        predicates:
+          - Path=/operation/**
+        filters:
+          - StripPrefix=1  
+      - id: apptransaction
+        uri: http://localhost:4003
+        predicates:
+          - Path=/transaction/**
+        filters:
+          - StripPrefix=1  
