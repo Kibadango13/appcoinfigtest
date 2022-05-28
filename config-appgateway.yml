@@ -1,5 +1,5 @@
 server:
-  port: 5000
+  port: 4005
   
 jwt:
   secret: Key#SuperSecret$Aforo2SS#JavaMicroservices#987654321
